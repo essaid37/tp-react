@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tp-client
+  labels:
+    app: tp-client
+spec:
+  selector:
+    matchLabels:
+      app: tp-client
+  template:
+    metadata:
+      labels:
+        app:  tp-client
+    spec:
+      containers:
+        - name:  tp-clients
+          image:  tp-client
+          imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app:  tp-client
+  type:  NodePort
+  ports:
+    - port:  3000

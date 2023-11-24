@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tp-posts
+  labels:
+    app: tp-posts
+spec:
+  selector:
+    matchLabels:
+      app: tp-posts
+  template:
+    metadata:
+      labels:
+        app:  tp-posts
+    spec:
+      containers:
+        - name:  tp-posts
+          image:  tp-posts
+          imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  posts-clusterip-srv
+spec:
+  selector:
+    app:  tp-posts
+  type:  ClusterIP
+  ports:
+    - port:  4000

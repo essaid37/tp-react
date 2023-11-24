@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tp-query
+  labels:
+    app: tp-query
+spec:
+  selector:
+    matchLabels:
+      app: tp-query
+  template:
+    metadata:
+      labels:
+        app:  tp-query
+    spec:
+      containers:
+        - name:  tp-query
+          image:  tp-query
+          imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  query-srv
+spec:
+  selector:
+    app:  tp-query
+  type:  ClusterIP
+  ports:
+    - port:  4002

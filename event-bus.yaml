@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tp-event-bus
+  labels:
+    app: tp-event-bus
+spec:
+  selector:
+    matchLabels:
+      app: tp-event-bus
+  template:
+    metadata:
+      labels:
+        app:  tp-event-bus
+    spec:
+      containers:
+        - name:  tp-event-bus
+          image:  tp-event-bus
+          imagePullPolicy: Never
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name:  event-bus-srv
+spec:
+  selector:
+    app:  tp-event-bus
+  type:  ClusterIP
+  ports:
+    - port:  4005
